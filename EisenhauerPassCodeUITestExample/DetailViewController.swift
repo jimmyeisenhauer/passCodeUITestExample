@@ -6,6 +6,7 @@
 //  Copyright © 2019 James Eisenhauer. All rights reserved.
 //
 
+import LocalAuthentication
 import UIKit
 
 class DetailViewController: UIViewController {
@@ -15,11 +16,22 @@ class DetailViewController: UIViewController {
 
     func configureView() {
         // Update the user interface for the detail item.
-        if let detail = detailItem {
-            if let label = detailDescriptionLabel {
-                label.text = detail.description
+        
+        if let label = detailDescriptionLabel {
+            label.text = "Success!"
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // request authentication
+        LAContext().evaluatePolicy(.deviceOwnerAuthentication, localizedReason: "test") { success, error in
+            if success {
+                print("success!!")
             }
         }
+        
     }
 
     override func viewDidLoad() {
@@ -34,7 +46,5 @@ class DetailViewController: UIViewController {
             configureView()
         }
     }
-
-
 }
 
