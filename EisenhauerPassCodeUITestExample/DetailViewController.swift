@@ -6,45 +6,35 @@
 //  Copyright © 2019 James Eisenhauer. All rights reserved.
 //
 
-import LocalAuthentication
 import UIKit
 
 class DetailViewController: UIViewController {
 
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
-
-
-    func configureView() {
-        // Update the user interface for the detail item.
-        
-        if let label = detailDescriptionLabel {
-            label.text = "Success!"
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // request authentication
-        LAContext().evaluatePolicy(.deviceOwnerAuthentication, localizedReason: "test") { success, error in
-            if success {
-                print("success!!")
-            }
-        }
-        
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        configureView()
-    }
 
-    var detailItem: NSDate? {
-        didSet {
-            // Update the view.
-            configureView()
-        }
+        navigationItem.largeTitleDisplayMode = .never
+
+        view.backgroundColor = .black
+        
+        let label: UILabel = {
+            
+            let label = UILabel()
+            label.text = "🏁 Secure Area!!! 🏴‍☠️"
+            label.textColor = .white
+            label.font = label.font.withSize(35)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            
+            return label
+        }()
+        
+        view.addSubview(label)
+        
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            ])
+        
     }
 }
 

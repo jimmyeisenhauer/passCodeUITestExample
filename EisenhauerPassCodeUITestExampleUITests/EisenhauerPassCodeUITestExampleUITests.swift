@@ -17,18 +17,22 @@ class EisenhauerPassCodeUITestExampleUITests: XCTestCase {
         continueAfterFailure = true
         app.launch()
         
-        let addButton = app.navigationBars["Master"].buttons["Add"]
-        waitForElementToAppear(addButton)
-        addButton.tap()
-
-        let firstRow = app.tables.staticTexts.firstMatch
-        firstRow.tap()
+        let button = app.buttons.firstMatch
+        waitForElementToAppear(button)
+        button.tap()
         
         sleep(3)  // wait for passcode to appear
-        XCUIDevice.shared.press(XCUIDevice.Button.home)
         
-        let success =  app.staticTexts["Success!"]
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        springboard.typeText("H\n")
+        
+        let success =  app.staticTexts["🏁 Secure Area!!! 🏴‍☠️"]
         XCTAssertTrue(success.exists)
+        
+        sleep(4) // sleep to pause the test for a bit
+        
+        let backButton = app.buttons["Passcode Test"]
+        backButton.tap()
         
         sleep(3) // sleep to pause the test for a bit
     }
